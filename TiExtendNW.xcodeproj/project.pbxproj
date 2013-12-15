@@ -1,0 +1,549 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		24416B8111C4CA220047AFDD /* Build & Test */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 24416B8A11C4CA520047AFDD /* Build configuration list for PBXAggregateTarget "Build & Test" */;
+			buildPhases = (
+				24416B8011C4CA220047AFDD /* ShellScript */,
+			);
+			dependencies = (
+				24416B8511C4CA280047AFDD /* PBXTargetDependency */,
+			);
+			name = "Build & Test";
+			productName = "Build & test";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		24DD6CF91134B3F500162E58 /* NetImthinkerTiExtendnwModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DD6CF71134B3F500162E58 /* NetImthinkerTiExtendnwModule.h */; };
+		24DD6CFA1134B3F500162E58 /* NetImthinkerTiExtendnwModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* NetImthinkerTiExtendnwModule.m */; };
+		24DE9E1111C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.h */; };
+		24DE9E1211C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.m */; };
+		AA747D9F0F9514B9006C5449 /* NetImthinkerTiExtendnw_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* NetImthinkerTiExtendnw_Prefix.pch */; };
+		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+		BD477DD7185C72D200C9BEAB /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD477DD6185C72D200C9BEAB /* ImageIO.framework */; };
+		BD477DDB185C933700C9BEAB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BD477DDA185C933700C9BEAB /* libxml2.dylib */; };
+		BD5736D3185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736D1185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.h */; };
+		BD5736D4185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736D2185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.m */; };
+		BD5736D7185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736D5185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.h */; };
+		BD5736D8185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736D6185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.m */; };
+		BD5736F3185C518600EB7258 /* NSData+MKBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736DD185C518600EB7258 /* NSData+MKBase64.h */; };
+		BD5736F4185C518600EB7258 /* NSData+MKBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736DE185C518600EB7258 /* NSData+MKBase64.m */; };
+		BD5736F5185C518600EB7258 /* NSDate+RFC1123.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736DF185C518600EB7258 /* NSDate+RFC1123.h */; };
+		BD5736F6185C518600EB7258 /* NSDate+RFC1123.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736E0185C518600EB7258 /* NSDate+RFC1123.m */; };
+		BD5736F7185C518600EB7258 /* NSDictionary+RequestEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736E1185C518600EB7258 /* NSDictionary+RequestEncoding.h */; };
+		BD5736F8185C518600EB7258 /* NSDictionary+RequestEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736E2185C518600EB7258 /* NSDictionary+RequestEncoding.m */; };
+		BD5736F9185C518600EB7258 /* NSString+MKNetworkKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736E3185C518600EB7258 /* NSString+MKNetworkKitAdditions.h */; };
+		BD5736FA185C518600EB7258 /* NSString+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736E4185C518600EB7258 /* NSString+MKNetworkKitAdditions.m */; };
+		BD5736FB185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736E5185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.h */; };
+		BD5736FC185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736E6185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.m */; };
+		BD5736FD185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736E7185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.h */; };
+		BD5736FE185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736E8185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.m */; };
+		BD5736FF185C518600EB7258 /* MKNetworkEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736E9185C518600EB7258 /* MKNetworkEngine.h */; };
+		BD573700185C518600EB7258 /* MKNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736EA185C518600EB7258 /* MKNetworkEngine.m */; };
+		BD573701185C518600EB7258 /* MKNetworkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736EB185C518600EB7258 /* MKNetworkKit.h */; };
+		BD573702185C518600EB7258 /* MKNetworkOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736EC185C518600EB7258 /* MKNetworkOperation.h */; };
+		BD573703185C518600EB7258 /* MKNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736ED185C518600EB7258 /* MKNetworkOperation.m */; };
+		BD573704185C518600EB7258 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = BD5736EF185C518600EB7258 /* Reachability.h */; };
+		BD573705185C518600EB7258 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5736F0185C518600EB7258 /* Reachability.m */; };
+		BD573707185C520300EB7258 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD573706185C520300EB7258 /* CFNetwork.framework */; };
+		BD573709185C520C00EB7258 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD573708185C520C00EB7258 /* SystemConfiguration.framework */; };
+		BD57370B185C521100EB7258 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD57370A185C521100EB7258 /* Security.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		24416B8411C4CA280047AFDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = TiExtendNW;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		24DD6CF71134B3F500162E58 /* NetImthinkerTiExtendnwModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetImthinkerTiExtendnwModule.h; path = Classes/NetImthinkerTiExtendnwModule.h; sourceTree = "<group>"; };
+		24DD6CF81134B3F500162E58 /* NetImthinkerTiExtendnwModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetImthinkerTiExtendnwModule.m; path = Classes/NetImthinkerTiExtendnwModule.m; sourceTree = "<group>"; };
+		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
+		24DE9E0F11C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetImthinkerTiExtendnwModuleAssets.h; path = Classes/NetImthinkerTiExtendnwModuleAssets.h; sourceTree = "<group>"; };
+		24DE9E1011C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetImthinkerTiExtendnwModuleAssets.m; path = Classes/NetImthinkerTiExtendnwModuleAssets.m; sourceTree = "<group>"; };
+		AA747D9E0F9514B9006C5449 /* NetImthinkerTiExtendnw_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetImthinkerTiExtendnw_Prefix.pch; sourceTree = SOURCE_ROOT; };
+		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BD477DD6185C72D200C9BEAB /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		BD477DD8185C92F900C9BEAB /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		BD477DDA185C933700C9BEAB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		BD5736D1185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetImthinkerTiExtendnwHTTPClientProxy.h; path = Classes/NetImthinkerTiExtendnwHTTPClientProxy.h; sourceTree = "<group>"; };
+		BD5736D2185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetImthinkerTiExtendnwHTTPClientProxy.m; path = Classes/NetImthinkerTiExtendnwHTTPClientProxy.m; sourceTree = "<group>"; };
+		BD5736D5185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetImthinkerTiExtendnwHTTPClient.h; path = Classes/NetImthinkerTiExtendnwHTTPClient.h; sourceTree = "<group>"; };
+		BD5736D6185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetImthinkerTiExtendnwHTTPClient.m; path = Classes/NetImthinkerTiExtendnwHTTPClient.m; sourceTree = "<group>"; };
+		BD5736DD185C518600EB7258 /* NSData+MKBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MKBase64.h"; sourceTree = "<group>"; };
+		BD5736DE185C518600EB7258 /* NSData+MKBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MKBase64.m"; sourceTree = "<group>"; };
+		BD5736DF185C518600EB7258 /* NSDate+RFC1123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RFC1123.h"; sourceTree = "<group>"; };
+		BD5736E0185C518600EB7258 /* NSDate+RFC1123.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RFC1123.m"; sourceTree = "<group>"; };
+		BD5736E1185C518600EB7258 /* NSDictionary+RequestEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RequestEncoding.h"; sourceTree = "<group>"; };
+		BD5736E2185C518600EB7258 /* NSDictionary+RequestEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RequestEncoding.m"; sourceTree = "<group>"; };
+		BD5736E3185C518600EB7258 /* NSString+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		BD5736E4185C518600EB7258 /* NSString+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		BD5736E5185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		BD5736E6185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		BD5736E7185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		BD5736E8185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		BD5736E9185C518600EB7258 /* MKNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkEngine.h; sourceTree = "<group>"; };
+		BD5736EA185C518600EB7258 /* MKNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkEngine.m; sourceTree = "<group>"; };
+		BD5736EB185C518600EB7258 /* MKNetworkKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkKit.h; sourceTree = "<group>"; };
+		BD5736EC185C518600EB7258 /* MKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkOperation.h; sourceTree = "<group>"; };
+		BD5736ED185C518600EB7258 /* MKNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkOperation.m; sourceTree = "<group>"; };
+		BD5736EF185C518600EB7258 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		BD5736F0185C518600EB7258 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BD573706185C520300EB7258 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		BD573708185C520C00EB7258 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BD57370A185C521100EB7258 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D2AAC07E0554694100DB518D /* libNetImthinkerTiExtendnw.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNetImthinkerTiExtendnw.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC07C0554694100DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD477DDB185C933700C9BEAB /* libxml2.dylib in Frameworks */,
+				BD477DD7185C72D200C9BEAB /* ImageIO.framework in Frameworks */,
+				BD57370B185C521100EB7258 /* Security.framework in Frameworks */,
+				BD573709185C520C00EB7258 /* SystemConfiguration.framework in Frameworks */,
+				BD573707185C520300EB7258 /* CFNetwork.framework in Frameworks */,
+				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC07E0554694100DB518D /* libNetImthinkerTiExtendnw.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* TiExtendNW */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				0867D69AFE84028FC02AAC07 /* Frameworks */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = TiExtendNW;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD477DDA185C933700C9BEAB /* libxml2.dylib */,
+				BD477DD8185C92F900C9BEAB /* libxml2.2.dylib */,
+				BD477DD6185C72D200C9BEAB /* ImageIO.framework */,
+				BD57370A185C521100EB7258 /* Security.framework */,
+				BD573708185C520C00EB7258 /* SystemConfiguration.framework */,
+				BD573706185C520300EB7258 /* CFNetwork.framework */,
+				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				24DE9E0F11C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.h */,
+				24DE9E1011C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.m */,
+				24DD6CF71134B3F500162E58 /* NetImthinkerTiExtendnwModule.h */,
+				24DD6CF81134B3F500162E58 /* NetImthinkerTiExtendnwModule.m */,
+				BD5736D1185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.h */,
+				BD5736D2185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.m */,
+				BD5736D5185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.h */,
+				BD5736D6185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BD5736D9185C518600EB7258 /* MKNetworkKit */,
+				AA747D9E0F9514B9006C5449 /* NetImthinkerTiExtendnw_Prefix.pch */,
+				24DD6D1B1134B66800162E58 /* titanium.xcconfig */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		BD5736D9185C518600EB7258 /* MKNetworkKit */ = {
+			isa = PBXGroup;
+			children = (
+				BD5736DA185C518600EB7258 /* Categories */,
+				BD5736E9185C518600EB7258 /* MKNetworkEngine.h */,
+				BD5736EA185C518600EB7258 /* MKNetworkEngine.m */,
+				BD5736EB185C518600EB7258 /* MKNetworkKit.h */,
+				BD5736EC185C518600EB7258 /* MKNetworkOperation.h */,
+				BD5736ED185C518600EB7258 /* MKNetworkOperation.m */,
+				BD5736EE185C518600EB7258 /* Reachability */,
+			);
+			path = MKNetworkKit;
+			sourceTree = "<group>";
+		};
+		BD5736DA185C518600EB7258 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				BD5736DD185C518600EB7258 /* NSData+MKBase64.h */,
+				BD5736DE185C518600EB7258 /* NSData+MKBase64.m */,
+				BD5736DF185C518600EB7258 /* NSDate+RFC1123.h */,
+				BD5736E0185C518600EB7258 /* NSDate+RFC1123.m */,
+				BD5736E1185C518600EB7258 /* NSDictionary+RequestEncoding.h */,
+				BD5736E2185C518600EB7258 /* NSDictionary+RequestEncoding.m */,
+				BD5736E3185C518600EB7258 /* NSString+MKNetworkKitAdditions.h */,
+				BD5736E4185C518600EB7258 /* NSString+MKNetworkKitAdditions.m */,
+				BD5736E5185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.h */,
+				BD5736E6185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.m */,
+				BD5736E7185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.h */,
+				BD5736E8185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		BD5736EE185C518600EB7258 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				BD5736EF185C518600EB7258 /* Reachability.h */,
+				BD5736F0185C518600EB7258 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC07A0554694100DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD5736F7185C518600EB7258 /* NSDictionary+RequestEncoding.h in Headers */,
+				BD5736FB185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.h in Headers */,
+				BD5736F3185C518600EB7258 /* NSData+MKBase64.h in Headers */,
+				BD573701185C518600EB7258 /* MKNetworkKit.h in Headers */,
+				BD573704185C518600EB7258 /* Reachability.h in Headers */,
+				BD5736F5185C518600EB7258 /* NSDate+RFC1123.h in Headers */,
+				BD5736FD185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.h in Headers */,
+				BD5736FF185C518600EB7258 /* MKNetworkEngine.h in Headers */,
+				AA747D9F0F9514B9006C5449 /* NetImthinkerTiExtendnw_Prefix.pch in Headers */,
+				24DD6CF91134B3F500162E58 /* NetImthinkerTiExtendnwModule.h in Headers */,
+				BD5736D3185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.h in Headers */,
+				BD573702185C518600EB7258 /* MKNetworkOperation.h in Headers */,
+				BD5736D7185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.h in Headers */,
+				BD5736F9185C518600EB7258 /* NSString+MKNetworkKitAdditions.h in Headers */,
+				24DE9E1111C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC07D0554694100DB518D /* TiExtendNW */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "TiExtendNW" */;
+			buildPhases = (
+				D2AAC07A0554694100DB518D /* Headers */,
+				D2AAC07B0554694100DB518D /* Sources */,
+				D2AAC07C0554694100DB518D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TiExtendNW;
+			productName = TiExtendNW;
+			productReference = D2AAC07E0554694100DB518D /* libNetImthinkerTiExtendnw.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "TiExtendNW" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* TiExtendNW */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC07D0554694100DB518D /* TiExtendNW */,
+				24416B8111C4CA220047AFDD /* Build & Test */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24416B8011C4CA220047AFDD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n\npython \"${TITANIUM_SDK}/titanium.py\" run --dir=\"${PROJECT_DIR}\"\nexit $?\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC07B0554694100DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD5736FA185C518600EB7258 /* NSString+MKNetworkKitAdditions.m in Sources */,
+				BD5736D8185C2EC300EB7258 /* NetImthinkerTiExtendnwHTTPClient.m in Sources */,
+				BD573703185C518600EB7258 /* MKNetworkOperation.m in Sources */,
+				BD5736FC185C518600EB7258 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
+				BD573700185C518600EB7258 /* MKNetworkEngine.m in Sources */,
+				BD5736F6185C518600EB7258 /* NSDate+RFC1123.m in Sources */,
+				BD5736F8185C518600EB7258 /* NSDictionary+RequestEncoding.m in Sources */,
+				BD5736FE185C518600EB7258 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
+				24DD6CFA1134B3F500162E58 /* NetImthinkerTiExtendnwModule.m in Sources */,
+				BD573705185C518600EB7258 /* Reachability.m in Sources */,
+				24DE9E1211C5FE74003F90F6 /* NetImthinkerTiExtendnwModuleAssets.m in Sources */,
+				BD5736D4185C2E9E00EB7258 /* NetImthinkerTiExtendnwHTTPClientProxy.m in Sources */,
+				BD5736F4185C518600EB7258 /* NSData+MKBase64.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		24416B8511C4CA280047AFDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D2AAC07D0554694100DB518D /* TiExtendNW */;
+			targetProxy = 24416B8411C4CA280047AFDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB921F08733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DSTROOT = /tmp/NetImthinkerTiExtendnw.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = NetImthinkerTiExtendnw_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DTI_POST_1_2",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = NetImthinkerTiExtendnw;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		1DEB922008733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DSTROOT = /tmp/NetImthinkerTiExtendnw.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = NetImthinkerTiExtendnw_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-DTI_POST_1_2";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = NetImthinkerTiExtendnw;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+		1DEB922308733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DSTROOT = /tmp/NetImthinkerTiExtendnw.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = NetImthinkerTiExtendnw_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DTI_POST_1_2",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = NetImthinkerTiExtendnw;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+			};
+			name = Debug;
+		};
+		1DEB922408733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				DSTROOT = /tmp/NetImthinkerTiExtendnw.dst;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = NetImthinkerTiExtendnw_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "TI_VERSION=$(TI_VERSION)";
+				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = NO;
+				GCC_WARN_MISSING_PARENTHESES = NO;
+				GCC_WARN_SHADOW = NO;
+				GCC_WARN_STRICT_SELECTOR_MATCH = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = NO;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				INSTALL_PATH = /usr/local/lib;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DTI_POST_1_2";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = NetImthinkerTiExtendnw;
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+			};
+			name = Release;
+		};
+		24416B8211C4CA220047AFDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build & test";
+			};
+			name = Debug;
+		};
+		24416B8311C4CA220047AFDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Build & test";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "TiExtendNW" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB921F08733DC00010E9CD /* Debug */,
+				1DEB922008733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "TiExtendNW" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB922308733DC00010E9CD /* Debug */,
+				1DEB922408733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24416B8A11C4CA520047AFDD /* Build configuration list for PBXAggregateTarget "Build & Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24416B8211C4CA220047AFDD /* Debug */,
+				24416B8311C4CA220047AFDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
