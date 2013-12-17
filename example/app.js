@@ -30,7 +30,7 @@
         Ti.API.info("module is => " + TiExtendNW);
 
         var http = TiExtendNW.createHTTPClient();
-        http.open('GET', 'http://httpbin.org/get', {
+        http.open('post', 'http://httpbin.org/post', {
             freezable: true,
             forceReload: true
         });
@@ -77,7 +77,12 @@
         http.setRequestHeader('X-ApplicationVersion', Ti.App.version);
         http.send({
             foo: 'bar',
-            hoge: 'huga'
+            hoge: 'huga',
+            fizzbuzz: {
+                buzz: 'fizzbuzz',
+                foo: 'bar',
+                hoge: 'huga'
+            }
         });
     });
     win.add(btn);

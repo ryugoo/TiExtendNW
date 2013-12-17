@@ -1,7 +1,7 @@
 #import "NetImthinkerTiExtendnwHTTPClientProxy.h"
 #import "TiBlob.h"
 #import "TiUtils.h"
- #import "TiDOMDocumentProxy.h"
+#import "TiDOMDocumentProxy.h"
 
 #pragma mark Anonymous class extension
 @interface NetImthinkerTiExtendnwHTTPClientProxy ()
@@ -16,7 +16,7 @@
 @property KrollCallback *onsendstreamCallback;
 
 #pragma mark Private methods
- - (TiProxy *)_responseXML:(NSString *)baseResponseText;
+// - (TiProxy *)_responseXML:(NSString *)baseResponseText;
 
 @end
 
@@ -119,45 +119,64 @@
         if (args) {
             // TODO: Construct GET query parameter
         }
+        return;
     } else {
-        for (id arg in args) {
-            if ([arg isKindOfClass:[NSString class]]) {
-                // NSString
-                [self.operation addData:[(NSString *)arg dataUsingEncoding:NSUTF8StringEncoding] forKey:nil];
-                
-            } else if ([arg isKindOfClass:[NSDictionary class]]) {
-                // NSDictionary
-                for (id key in arg) {
-                    id value = arg[key];
-                    if ([value isKindOfClass:[TiBlob class]] || [value isKindOfClass:[TiFile class]]) {
-                        // Blob
-                        TiBlob *blob = [value isKindOfClass:[TiBlob class]] ? (TiBlob *)value : [(TiFile *)value blob];
-                        if ([blob type] == TiBlobTypeFile) {
-                            // File
-                            [self.operation addFile:[blob path] forKey:key];
+        if (args != nil) {
+            for (id arg in args) {
+                if ([arg isKindOfClass:[NSString class]]) {
+                    // NSString
+                    [self.operation addData:[(NSString *)arg dataUsingEncoding:NSUTF8StringEncoding] forKey:nil];
+                    
+                } else if ([arg isKindOfClass:[NSDictionary class]]) {
+                    // Params mutable array
+                    NSMutableArray *queryParameters = [NSMutableArray new];
+                    // NSDictionary
+                    for (id key in arg) {
+                        id value = arg[key];
+                        if ([value isKindOfClass:[TiBlob class]] || [value isKindOfClass:[TiFile class]]) {
+                            // Blob
+                            TiBlob *blob = [value isKindOfClass:[TiBlob class]] ? (TiBlob *)value : [(TiFile *)value blob];
+                            if ([blob type] == TiBlobTypeFile) {
+                                // File
+                                [self.operation addFile:[blob path] forKey:key];
+                            } else {
+                                // Data
+                                NSData *data = [blob data];
+                                [self.operation addData:data forKey:key];
+                            }
+                            
                         } else {
-                            // Data
-                            NSData *data = [blob data];
-                            [self.operation addData:data forKey:key];
+                            // Other format (URIEncode)
+                            NSString *escapedUrlString = (__bridge_transfer NSString *)
+                            CFURLCreateStringByAddingPercentEscapes(
+                                                                    kCFAllocatorDefault,
+                                                                    (__bridge CFStringRef)[TiUtils stringValue:value],
+                                                                    NULL,
+                                                                    (__bridge CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                    kCFStringEncodingUTF8
+                                                                    );
+                            [queryParameters addObject:[NSString stringWithFormat:@"%@=%@", key, escapedUrlString]];
                         }
-                        
-                    } else {
-                        // Other format (Convert to NSData)
-                        [self.operation addData:[(NSString *)value dataUsingEncoding:NSUTF8StringEncoding] forKey:(NSString *)key];
                     }
+                    if ([queryParameters count] != 0) {
+                        __block NSString *query = [queryParameters componentsJoinedByString:@"&"];
+                        [self.operation setCustomPostDataEncodingHandler:^NSString *(NSDictionary *postDataDict) {
+                            return query;
+                        } forType:@"application/x-www-form-urlencoded"];
+                    }
+                    
+                } else if ([arg isKindOfClass:[TiBlob class]] || [arg isKindOfClass:[TiFile class]]) {
+                    // TiBlob or TiFile
+                    TiBlob *blob = [arg isKindOfClass:[TiBlob class]] ? (TiBlob *)arg : [(TiFile *)arg blob];
+                    if ([blob type] == TiBlobTypeFile) {
+                        // File
+                        [self.operation addFile:[blob path] forKey:nil];
+                    } else {
+                        NSData *data = [blob data];
+                        [self.operation addData:data forKey:nil];
+                    }
+                    
                 }
-                
-            } else if ([arg isKindOfClass:[TiBlob class]] || [arg isKindOfClass:[TiFile class]]) {
-                // TiBlob or TiFile
-                TiBlob *blob = [arg isKindOfClass:[TiBlob class]] ? (TiBlob *)arg : [(TiFile *)arg blob];
-                if ([blob type] == TiBlobTypeFile) {
-                    // File
-                    [self.operation addFile:[blob path] forKey:nil];
-                } else {
-                    NSData *data = [blob data];
-                    [self.operation addData:data forKey:nil];
-                }
-                
             }
         }
     }
@@ -213,7 +232,7 @@
             }
             if (completedOperation.responseString != nil) {
                 [weakself setValue:completedOperation.responseString forUndefinedKey:@"responseText"];
-                [weakself setValue:[weakself _responseXML:completedOperation.responseString] forUndefinedKey:@"responseXML"];
+                // [weakself setValue:[weakself _responseXML:completedOperation.responseString] forUndefinedKey:@"responseXML"];
             }
             if (completedOperation.responseJSON != nil) {
                 [weakself setValue:completedOperation.responseJSON forUndefinedKey:@"responseJSON"];
@@ -250,14 +269,19 @@
 }
 
 #pragma mark Private methods
-- (TiProxy *)_responseXML:(NSString *)baseResponseText
-{
-    if (baseResponseText != nil && (![baseResponseText isEqual:(id)[NSNull null]])) {
-        TiDOMDocumentProxy *dom = [[TiDOMDocumentProxy alloc] _initWithPageContext:[self executionContext]];
-        [dom parseString:baseResponseText];
-        return dom;
-    }
-    return (id)[NSNull null];
-}
+//- (TiProxy *)_responseXML:(NSString *)baseResponseText
+//{
+//    if (baseResponseText != nil && (![baseResponseText isEqual:(id)[NSNull null]])) {
+//        TiDOMDocumentProxy *dom = [[TiDOMDocumentProxy alloc] _initWithPageContext:[self executionContext]];
+//        @try {
+//            [dom parseString:baseResponseText];
+//        }
+//        @catch (NSException *exception) {
+//            return (id)[NSNull null];
+//        }
+//        return dom;
+//    }
+//    return (id)[NSNull null];
+//}
 
 @end
