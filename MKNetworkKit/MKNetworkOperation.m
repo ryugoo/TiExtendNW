@@ -105,6 +105,16 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,
 
 @dynamic freezable;
 
+- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval
+{
+    [self.request setTimeoutInterval:timeoutInterval];
+}
+
+- (NSTimeInterval)timeoutInterval
+{
+    return [self.request timeoutInterval];
+}
+
 // A RESTful service should always return the same response for a given URL and it's parameters.
 // this means if these values are correct, you can cache the responses
 // This is another reason why we check only GET methods.

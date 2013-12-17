@@ -1,7 +1,7 @@
 #import "NetImthinkerTiExtendnwHTTPClientProxy.h"
 #import "TiBlob.h"
 #import "TiUtils.h"
-// #import "TiDOMDocumentProxy.h"
+ #import "TiDOMDocumentProxy.h"
 
 #pragma mark Anonymous class extension
 @interface NetImthinkerTiExtendnwHTTPClientProxy ()
@@ -16,7 +16,7 @@
 @property KrollCallback *onsendstreamCallback;
 
 #pragma mark Private methods
-// - (TiProxy *)responseXML:(NSString *)baseResponseText;
+ - (TiProxy *)_responseXML:(NSString *)baseResponseText;
 
 @end
 
@@ -82,11 +82,28 @@
 
 - (void)setRequestHeader:(id)args
 {
+    NSLog(@"Call requestheader method");
+    
     NSString *key;
     NSString *value;
     ENSURE_ARG_OR_NIL_AT_INDEX(key, args, 0, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(value, args, 1, NSString);
     [self.operation addHeader:key withValue:value];
+}
+
+- (void)setTimeout:(id)args
+{
+    NSLog(@"Call timeout method");
+    
+    NSNumber *timeout;
+    NSTimeInterval timeoutVal;
+    ENSURE_ARG_OR_NIL_AT_INDEX(timeout, args, 0, NSNumber);
+    if (timeout) {
+        timeoutVal = [timeout doubleValue] / 1000;
+    } else {
+        timeoutVal = 60.0;
+    }
+    [self.operation setTimeoutInterval:timeoutVal];
 }
 
 - (void)send:(id)args
@@ -196,7 +213,7 @@
             }
             if (completedOperation.responseString != nil) {
                 [weakself setValue:completedOperation.responseString forUndefinedKey:@"responseText"];
-                // [weakself setValue:[weakself responseXML:completedOperation.responseString] forKey:@"responseXML"];
+                [weakself setValue:[weakself _responseXML:completedOperation.responseString] forUndefinedKey:@"responseXML"];
             }
             if (completedOperation.responseJSON != nil) {
                 [weakself setValue:completedOperation.responseJSON forUndefinedKey:@"responseJSON"];
@@ -233,14 +250,14 @@
 }
 
 #pragma mark Private methods
-//- (TiProxy *)responseXML:(NSString *)baseResponseText
-//{
-//    if (baseResponseText) {
-//        TiDOMDocumentProxy *dom = [[TiDOMDocumentProxy alloc] _initWithPageContext:[self executionContext]];
-//        [dom parseString:baseResponseText];
-//        return dom;
-//    }
-//    return (id)[NSNull null];
-//}
+- (TiProxy *)_responseXML:(NSString *)baseResponseText
+{
+    if (baseResponseText != nil && (![baseResponseText isEqual:(id)[NSNull null]])) {
+        TiDOMDocumentProxy *dom = [[TiDOMDocumentProxy alloc] _initWithPageContext:[self executionContext]];
+        [dom parseString:baseResponseText];
+        return dom;
+    }
+    return (id)[NSNull null];
+}
 
 @end

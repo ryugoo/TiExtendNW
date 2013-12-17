@@ -689,4 +689,13 @@ typedef enum {
 - (instancetype)initWithURLString:(NSString *)aURLString
                  params:(NSDictionary *)params
              httpMethod:(NSString *)method;
+
+
+#pragma mark Extend properties
+@property (nonatomic) NSTimeInterval timeoutInterval;
+
+#pragma mark Extend methods
+- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval;
+- (NSTimeInterval)timeoutInterval;
+
 @end

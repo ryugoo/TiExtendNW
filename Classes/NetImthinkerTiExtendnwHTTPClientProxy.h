@@ -14,6 +14,7 @@
 - (void)setOndatastream:(KrollCallback *)callback;
 - (void)setOnsendstream:(KrollCallback *)callback;
 - (void)setRequestHeader:(id)args;
+- (void)setTimeout:(id)args;
 - (void)send:(id)args;
 
 @end

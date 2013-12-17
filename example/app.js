@@ -32,7 +32,7 @@
         var http = TiExtendNW.createHTTPClient();
         http.open('GET', 'http://httpbin.org/get', {
             freezable: true,
-            forceReload: false
+            forceReload: true
         });
 
         http.onload = function (e) {
@@ -54,6 +54,9 @@
 
             Ti.API.debug('responseData');
             Ti.API.debug(http.responseData);
+
+            Ti.API.debug('responseXML');
+            Ti.API.debug(http.responseXML);
         };
 
         http.onerror = function (e) {
@@ -67,6 +70,8 @@
         http.onsendstream = function (e) {
             ind.value = e.value;
         };
+
+        http.timeout = 10000; // ms
 
         http.setRequestHeader('User-Agent', 'MKNetworkKit wrapper for Titanium (iOS) / Version 1.0');
         http.setRequestHeader('X-ApplicationVersion', Ti.App.version);

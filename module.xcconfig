@@ -11,7 +11,7 @@
 // How to add a Framework (example)
 //
 // OTHER_LDFLAGS=$(inherited) -framework Foo
-OTHER_LDFLAGS=$(inherited) /usr/lib/libxml2.dylib -framework CFNetwork -framework Security -framework SystemConfiguration -framework ImageIO -lxml2
+OTHER_LDFLAGS=$(inherited) -framework CFNetwork -framework Security -framework SystemConfiguration -framework ImageIO /usr/lib/libxml2.2.dylib -lxml2
 //
 // Adding a framework for a specific version(s) of iPhone:
 //
