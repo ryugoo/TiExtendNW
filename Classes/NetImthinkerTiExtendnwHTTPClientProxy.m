@@ -2,6 +2,7 @@
 #import "TiBlob.h"
 #import "TiUtils.h"
 #import "TiDOMDocumentProxy.h"
+#import "NSString+URIEncode_Decode.h"
 
 #pragma mark Anonymous class extension
 @interface NetImthinkerTiExtendnwHTTPClientProxy ()
@@ -16,7 +17,7 @@
 @property KrollCallback *onsendstreamCallback;
 
 #pragma mark Private methods
-// - (TiProxy *)_responseXML:(NSString *)baseResponseText;
+- (TiProxy *)_responseXML:(NSString *)baseResponseText;
 
 @end
 
@@ -115,11 +116,19 @@
     
     // Prepare send parameter
     if ([[self.verb uppercaseString] isEqualToString:@"GET"]) {
-        ENSURE_SINGLE_ARG(args, NSDictionary);
-        if (args) {
-            // TODO: Construct GET query parameter
+        ENSURE_SINGLE_ARG_OR_NIL(args, NSDictionary);
+        if (args != nil) {
+            NSMutableArray *queryParameters = [NSMutableArray new];
+            for (id key in args) {
+                NSString *encodedString = [NSString encodeURIComponent:[TiUtils stringValue:args[key]]];
+                [queryParameters addObject:[NSString stringWithFormat:@"%@=%@", key, encodedString]];
+            }
+            if ([queryParameters count] != 0) {
+                NSString *queryString = [queryParameters componentsJoinedByString:@"&"];
+                NSString *newRequestURI = [self.url stringByAppendingFormat:@"?%@", queryString];
+                self.operation = [self.engine operationWithURLString:newRequestURI params:nil httpMethod:@"GET"];
+            }
         }
-        return;
     } else {
         if (args != nil) {
             for (id arg in args) {
@@ -147,15 +156,8 @@
                             
                         } else {
                             // Other format (URIEncode)
-                            NSString *escapedUrlString = (__bridge_transfer NSString *)
-                            CFURLCreateStringByAddingPercentEscapes(
-                                                                    kCFAllocatorDefault,
-                                                                    (__bridge CFStringRef)[TiUtils stringValue:value],
-                                                                    NULL,
-                                                                    (__bridge CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                    kCFStringEncodingUTF8
-                                                                    );
-                            [queryParameters addObject:[NSString stringWithFormat:@"%@=%@", key, escapedUrlString]];
+                            NSString *encodedString = [NSString encodeURIComponent:[TiUtils stringValue:value]];
+                            [queryParameters addObject:[NSString stringWithFormat:@"%@=%@", key, encodedString]];
                         }
                     }
                     if ([queryParameters count] != 0) {
@@ -269,19 +271,19 @@
 }
 
 #pragma mark Private methods
-//- (TiProxy *)_responseXML:(NSString *)baseResponseText
-//{
-//    if (baseResponseText != nil && (![baseResponseText isEqual:(id)[NSNull null]])) {
-//        TiDOMDocumentProxy *dom = [[TiDOMDocumentProxy alloc] _initWithPageContext:[self executionContext]];
-//        @try {
-//            [dom parseString:baseResponseText];
-//        }
-//        @catch (NSException *exception) {
-//            return (id)[NSNull null];
-//        }
-//        return dom;
-//    }
-//    return (id)[NSNull null];
-//}
+- (TiProxy *)_responseXML:(NSString *)baseResponseText
+{
+    if (baseResponseText != nil && (![baseResponseText isEqual:(id)[NSNull null]])) {
+        TiDOMDocumentProxy *dom = [[TiDOMDocumentProxy alloc] _initWithPageContext:[self executionContext]];
+        @try {
+            [dom parseString:baseResponseText];
+        }
+        @catch (NSException *exception) {
+            return (id)[NSNull null];
+        }
+        return dom;
+    }
+    return (id)[NSNull null];
+}
 
 @end
