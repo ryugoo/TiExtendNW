@@ -29,7 +29,7 @@
 
 - (void)open:(id)args
 {
-    NSLog(@"Call open method");
+    DLog(@"Call open method");
     
     ENSURE_ARG_OR_NIL_AT_INDEX(self.verb, args, 0, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(self.url, args, 1, NSString);
@@ -40,35 +40,35 @@
 
 - (void)setOnload:(KrollCallback *)callback
 {
-    NSLog(@"Call onload method");
+    DLog(@"Call onload method");
     
     self.onloadCallback = callback;
 }
 
 - (void)setOnerror:(KrollCallback *)callback
 {
-    NSLog(@"Call onerror method");
+    DLog(@"Call onerror method");
     
     self.onerrorCallback = callback;
 }
 
 - (void)setOndatastream:(KrollCallback *)callback
 {
-    NSLog(@"Call ondatastream method");
+    DLog(@"Call ondatastream method");
     
     self.ondatastreamCallback = callback;
 }
 
 - (void)setOnsendstream:(KrollCallback *)callback
 {
-    NSLog(@"Call onsendstream method");
+    DLog(@"Call onsendstream method");
     
     self.onsendstreamCallback = callback;
 }
 
 - (void)setRequestHeader:(id)args
 {
-    NSLog(@"Call requestheader method");
+    DLog(@"Call requestheader method");
     
     NSString *key;
     NSString *value;
@@ -79,7 +79,7 @@
 
 - (void)setTimeout:(id)args
 {
-    NSLog(@"Call timeout method");
+    DLog(@"Call timeout method");
     
     NSNumber *timeout;
     ENSURE_ARG_OR_NIL_AT_INDEX(timeout, args, 0, NSNumber);
@@ -92,7 +92,7 @@
 
 - (void)send:(id)args
 {
-    NSLog(@"Call send method");
+    DLog(@"Call send method");
     
     // Weak reference self object for blocks
     __block NetImthinkerTiExtendnwHTTPClientProxy *weakself = self;
@@ -268,7 +268,7 @@
                                   listener:weakself.onloadCallback
                                 thisObject:nil];
         } else {
-            NSLog(@"Missing onload callback");
+            DLog(@"Missing onload callback");
         }
         
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
@@ -283,7 +283,7 @@
                                   listener:weakself.onerrorCallback
                                 thisObject:nil];
         } else {
-            NSLog(@"Missing onerror callback");
+            DLog(@"Missing onerror callback");
         }
         
     }];
