@@ -31,8 +31,8 @@
 
         var http = TiExtendNW.createHTTPClient();
         http.open('GET', 'http://httpbin.org/get', {
-            freezable: true,
-            forceReload: true
+            freezable: false,
+            forceReload: false
         });
 
         http.onload = function (e) {
@@ -71,9 +71,9 @@
             ind.value = e.value;
         };
 
-        http.timeout = 10000; // ms
+        http.timeout = 1000; // ms
 
-        http.setRequestHeader('User-Agent', 'MKNetworkKit wrapper for Titanium (iOS) / Version 1.0');
+        http.setRequestHeader('User-Agent', 'MKNetworkKit wrapper for Titanium (iOS) Version 1.0');
         http.setRequestHeader('X-ApplicationVersion', Ti.App.version);
         http.send({
             foo: 'bar',

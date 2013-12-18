@@ -11,6 +11,9 @@
 @property NSString *verb;
 @property NSString *url;
 @property BOOL forceReload;
+@property NSMutableDictionary *requestHeaderDict;
+@property NSDictionary *openOptions;
+@property NSTimeInterval timeoutVal;
 @property KrollCallback *onloadCallback;
 @property KrollCallback *onerrorCallback;
 @property KrollCallback *ondatastreamCallback;
@@ -30,27 +33,9 @@
     
     ENSURE_ARG_OR_NIL_AT_INDEX(self.verb, args, 0, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(self.url, args, 1, NSString);
-    self.engine = [[MKNetworkEngine alloc] init];
-    self.operation = [self.engine operationWithURLString:self.url params:nil httpMethod:self.verb];
-    
-    // Options
-    NSDictionary *options;
-    ENSURE_ARG_OR_NIL_AT_INDEX(options, args, 2, NSDictionary);
-    if (options) {
-        // Freezable
-        if (options[@"freezable"] && [options[@"freezable"] isKindOfClass:[NSNumber class]]) {
-            [self.operation setFreezable:[TiUtils boolValue:options[@"freezable"] def:NO]];
-        } else {
-            [self.operation setFreezable:NO];
-        }
-        
-        // Force reload
-        if (options[@"forceReload"] && [options[@"forceReload"] isKindOfClass:[NSNumber class]]) {
-            self.forceReload = [TiUtils boolValue:options[@"forceReload"] def:NO];
-        } else {
-            self.forceReload = NO;
-        }
-    }
+    ENSURE_ARG_OR_NIL_AT_INDEX(self.openOptions, args, 2, NSDictionary);
+    self.engine = [self sharedEngine];
+    self.requestHeaderDict = [[NSMutableDictionary alloc] init];
 }
 
 - (void)setOnload:(KrollCallback *)callback
@@ -89,7 +74,7 @@
     NSString *value;
     ENSURE_ARG_OR_NIL_AT_INDEX(key, args, 0, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(value, args, 1, NSString);
-    [self.operation addHeader:key withValue:value];
+    [self.requestHeaderDict setObject:value forKey:key];
 }
 
 - (void)setTimeout:(id)args
@@ -97,14 +82,12 @@
     NSLog(@"Call timeout method");
     
     NSNumber *timeout;
-    NSTimeInterval timeoutVal;
     ENSURE_ARG_OR_NIL_AT_INDEX(timeout, args, 0, NSNumber);
     if (timeout) {
-        timeoutVal = [timeout doubleValue] / 1000;
+        self.timeoutVal = [timeout doubleValue] / 1000;
     } else {
-        timeoutVal = 60.0;
+        self.timeoutVal = 60.0;
     }
-    [self.operation setTimeoutInterval:timeoutVal];
 }
 
 - (void)send:(id)args
@@ -126,10 +109,16 @@
             if ([queryParameters count] != 0) {
                 NSString *queryString = [queryParameters componentsJoinedByString:@"&"];
                 NSString *newRequestURI = [self.url stringByAppendingFormat:@"?%@", queryString];
-                self.operation = [self.engine operationWithURLString:newRequestURI params:nil httpMethod:@"GET"];
+                self.operation = [self.engine operationWithURLString:newRequestURI params:nil httpMethod:self.verb];
+            } else {
+                self.operation = [self.engine operationWithURLString:self.url params:nil httpMethod:self.verb];
             }
+        } else {
+            self.operation = [self.engine operationWithURLString:self.url params:nil httpMethod:self.verb];
         }
     } else {
+        self.operation = [self.engine operationWithURLString:self.url params:nil httpMethod:self.verb];
+        
         if (args != nil) {
             for (id arg in args) {
                 if ([arg isKindOfClass:[NSString class]]) {
@@ -183,8 +172,35 @@
         }
     }
     
-    // Set send parameter
-    [self.operation addParams:nil];
+    // Options
+    if (self.openOptions) {
+        // Freezable
+        if (self.openOptions[@"freezable"] && [self.openOptions[@"freezable"] isKindOfClass:[NSNumber class]]) {
+            [self.operation setFreezable:[TiUtils boolValue:self.openOptions[@"freezable"] def:NO]];
+        } else {
+            [self.operation setFreezable:NO];
+        }
+        
+        // Force reload
+        if (self.openOptions[@"forceReload"] && [self.openOptions[@"forceReload"] isKindOfClass:[NSNumber class]]) {
+            self.forceReload = [TiUtils boolValue:self.openOptions[@"forceReload"] def:NO];
+        } else {
+            self.forceReload = NO;
+        }
+    }
+    
+    // Set request header
+    if ([self.requestHeaderDict count] != 0) {
+        for (NSString *key in [self.requestHeaderDict keyEnumerator]) {
+            NSString *value = [self.requestHeaderDict valueForKey:key];
+            [self.operation addHeader:key withValue:value];
+        }
+    }
+    
+    // Set timeout
+    if (self.timeoutVal) {
+        [self.operation setTimeoutInterval:self.timeoutVal];
+    }
     
     // Set ondatastream / onsendstream hander
     if (self.ondatastreamCallback != nil) {
@@ -234,7 +250,13 @@
             }
             if (completedOperation.responseString != nil) {
                 [weakself setValue:completedOperation.responseString forUndefinedKey:@"responseText"];
-                // [weakself setValue:[weakself _responseXML:completedOperation.responseString] forUndefinedKey:@"responseXML"];
+                
+                NSString *xmlSubString = [[completedOperation.responseString substringToIndex:5] lowercaseString];
+                if ([xmlSubString isEqualToString:@"<?xml"]) {
+                    [weakself setValue:[weakself _responseXML:completedOperation.responseString] forUndefinedKey:@"responseXML"];
+                } else {
+                    [weakself setValue:(id)[NSNull null] forUndefinedKey:@"responseXML"];
+                }
             }
             if (completedOperation.responseJSON != nil) {
                 [weakself setValue:completedOperation.responseJSON forUndefinedKey:@"responseJSON"];
@@ -284,6 +306,18 @@
         return dom;
     }
     return (id)[NSNull null];
+}
+
+#pragma mark Singleton
+- (MKNetworkEngine *)sharedEngine
+{
+    static MKNetworkEngine *engine;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        engine = [[MKNetworkEngine alloc] init];
+        [engine useCache];
+    });
+    return engine;
 }
 
 @end
