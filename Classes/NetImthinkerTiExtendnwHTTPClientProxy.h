@@ -15,6 +15,8 @@
 - (void)setOnsendstream:(KrollCallback *)callback;
 - (void)setRequestHeader:(id)args;
 - (void)setTimeout:(id)args;
+- (void)setCache:(id)args;
+- (void)setEnableKeepAlive:(id)args;
 - (void)send:(id)args;
 
 @end

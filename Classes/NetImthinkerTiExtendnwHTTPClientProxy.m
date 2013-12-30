@@ -21,6 +21,8 @@
 
 #pragma mark Private methods
 - (TiProxy *)_responseXML:(NSString *)baseResponseText;
+- (void)_createNetworkOperation;
+- (void)_createNetworkOperation:(NSString *)uri;
 
 @end
 
@@ -129,15 +131,15 @@
             if ([queryParameters count] != 0) {
                 NSString *queryString = [queryParameters componentsJoinedByString:@"&"];
                 NSString *newRequestURI = [self.url stringByAppendingFormat:@"?%@", queryString];
-                self.operation = [self.engine operationWithURLString:newRequestURI params:nil httpMethod:self.verb];
+                [self _createNetworkOperation:newRequestURI];
             } else {
-                self.operation = [self.engine operationWithURLString:self.url params:nil httpMethod:self.verb];
+                [self _createNetworkOperation];
             }
         } else {
-            self.operation = [self.engine operationWithURLString:self.url params:nil httpMethod:self.verb];
+            [self _createNetworkOperation];
         }
     } else {
-        self.operation = [self.engine operationWithURLString:self.url params:nil httpMethod:self.verb];
+        [self _createNetworkOperation];
         
         if (args != nil) {
             for (id arg in args) {
@@ -326,6 +328,20 @@
         return dom;
     }
     return (id)[NSNull null];
+}
+
+- (void)_createNetworkOperation
+{
+    self.operation = [self.engine operationWithURLString:self.url
+                                                  params:nil
+                                              httpMethod:self.verb];
+}
+
+- (void)_createNetworkOperation:(NSString *)uri
+{
+    self.operation = [self.engine operationWithURLString:uri
+                                                  params:nil
+                                              httpMethod:self.verb];
 }
 
 #pragma mark Singleton
