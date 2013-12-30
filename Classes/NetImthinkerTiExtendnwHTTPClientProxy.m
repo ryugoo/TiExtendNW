@@ -35,7 +35,7 @@
     ENSURE_ARG_OR_NIL_AT_INDEX(self.url, args, 1, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(self.openOptions, args, 2, NSDictionary);
     self.engine = [self sharedEngine];
-    self.requestHeaderDict = [[NSMutableDictionary alloc] init];
+    self.requestHeaderDict = [NSMutableDictionary new];
 }
 
 - (void)setOnload:(KrollCallback *)callback
@@ -87,6 +87,26 @@
         self.timeoutVal = [timeout doubleValue] / 1000;
     } else {
         self.timeoutVal = 60.0;
+    }
+}
+
+- (void)setCache:(id)args
+{
+    DLog(@"Call cache method");
+    
+    BOOL useCache = [TiUtils boolValue:args def:NO];
+    if (useCache) {
+        [self.engine useCache];
+    }
+}
+
+- (void)setEnableKeepAlive:(id)args
+{
+    DLog(@"Call enableKeepAlive method");
+    
+    BOOL enableKeepAlive = [TiUtils boolValue:args def:NO];
+    if (enableKeepAlive) {
+        [self.requestHeaderDict setObject:@"Keep-Alive" forKey:@"Connection"];
     }
 }
 
@@ -315,7 +335,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         engine = [[MKNetworkEngine alloc] init];
-        [engine useCache];
     });
     return engine;
 }

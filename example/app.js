@@ -30,8 +30,8 @@
         Ti.API.info("module is => " + TiExtendNW);
 
         var http = TiExtendNW.createHTTPClient();
-        http.open('GET', 'http://httpbin.org/get', {
-            freezable: false,
+        http.open('POST', 'http://httpbin.org/post', {
+            freezable: true, // Enable expect GET method
             forceReload: false
         });
 
@@ -72,6 +72,10 @@
         };
 
         http.timeout = 60000; // ms
+
+        http.cache = false;
+
+        http.enableKeepAlive = true;
 
         http.setRequestHeader('User-Agent', 'MKNetworkKit wrapper for Titanium (iOS) Version 1.0');
         http.setRequestHeader('X-ApplicationVersion', Ti.App.version);
