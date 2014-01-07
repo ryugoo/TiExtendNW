@@ -335,6 +335,7 @@
     self.operation = [self.engine operationWithURLString:self.url
                                                   params:nil
                                               httpMethod:self.verb];
+    [self.operation setShouldContinueWithInvalidCertificate:YES];
 }
 
 - (void)_createNetworkOperation:(NSString *)uri
@@ -342,6 +343,7 @@
     self.operation = [self.engine operationWithURLString:uri
                                                   params:nil
                                               httpMethod:self.verb];
+    [self.operation setShouldContinueWithInvalidCertificate:YES];
 }
 
 #pragma mark Singleton
