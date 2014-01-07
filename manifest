@@ -2,7 +2,7 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0
+version: 1.1
 apiversion: 2
 description: MKNetworkKit wrapper for Titanium (iOS)
 author: Ryutaro Miyashita
@@ -35,4 +35,4 @@ name: TiExtendNW
 moduleid: net.imthinker.ti.extendnw
 guid: 191f4ae1-9c71-4828-866c-8f46f791c6bb
 platform: iphone
-minsdk: 3.2.0.v20131210191510
+minsdk: 3.2.0.GA
