@@ -29,6 +29,11 @@
 #pragma mark Implementation
 @implementation NetImthinkerTiExtendnwHTTPClientProxy
 
+- (void)abort:(id)args
+{
+    [self.operation cancel];
+}
+
 - (void)open:(id)args
 {
     DLog(@"Call open method");
@@ -268,6 +273,7 @@
                     contentType = @"application/octet-stream";
                 }
                 TiBlob *blob = [[TiBlob alloc] initWithData:completedOperation.responseData mimetype:contentType];
+                [weakself setValue:completedOperation.responseData forUndefinedKey:@"responseRawData"];
                 [weakself setValue:blob forUndefinedKey:@"responseData"];
             }
             if (completedOperation.responseString != nil) {

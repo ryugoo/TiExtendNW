@@ -8,6 +8,7 @@
 @property MKNetworkOperation *operation;
 
 #pragma mark Methods
+- (void)abort:(id)args;
 - (void)open:(id)args;
 - (void)setOnload:(KrollCallback *)callback;
 - (void)setOnerror:(KrollCallback *)callback;

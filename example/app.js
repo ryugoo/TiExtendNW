@@ -83,6 +83,9 @@
             english: 'Appcelerator',
             japanese: 'あぷせられーた'
         });
+
+        // Immediate cancel operation
+        // http.abort();
     });
     win.add(btn);
     win.add(ind);
