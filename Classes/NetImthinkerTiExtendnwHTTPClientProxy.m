@@ -8,16 +8,17 @@
 @interface NetImthinkerTiExtendnwHTTPClientProxy ()
 
 #pragma mark Private properties
-@property NSString *verb;
-@property NSString *url;
-@property BOOL forceReload;
-@property NSMutableDictionary *requestHeaderDict;
-@property NSDictionary *openOptions;
-@property NSTimeInterval timeoutVal;
-@property KrollCallback *onloadCallback;
-@property KrollCallback *onerrorCallback;
-@property KrollCallback *ondatastreamCallback;
-@property KrollCallback *onsendstreamCallback;
+@property (nonatomic, copy) NSString *verb;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic) BOOL forceReload;
+@property (nonatomic) NSMutableDictionary *requestHeaderDict;
+@property (nonatomic, copy) NSDictionary *openOptions;
+@property (nonatomic) NSTimeInterval timeoutVal;
+@property (nonatomic) KrollCallback *onloadCallback;
+@property (nonatomic) KrollCallback *onerrorCallback;
+@property (nonatomic) KrollCallback *oncancelCallback;
+@property (nonatomic) KrollCallback *ondatastreamCallback;
+@property (nonatomic) KrollCallback *onsendstreamCallback;
 
 #pragma mark Private methods
 - (TiProxy *)_responseXML:(NSString *)baseResponseText;
@@ -33,12 +34,12 @@
 {
     [self.operation cancel];
     if ([self.operation isCancelled] && self.onerrorCallback != nil) {
-        NSDictionary *errorObject = @{@"error": @"cancel",
-                                      @"status": @(-1),
-                                      @"success": @NO};
-        [self _fireEventToListener:@"onerror"
-                        withObject:errorObject
-                          listener:self.onerrorCallback
+        NSDictionary *cancelObject = @{@"error": @"cancel",
+                                       @"cencel": @YES,
+                                       @"success": @NO};
+        [self _fireEventToListener:@"oncancel"
+                        withObject:cancelObject
+                          listener:self.oncancelCallback
                         thisObject:nil];
     }
 }
@@ -66,6 +67,13 @@
     DLog(@"Call onerror method");
     
     self.onerrorCallback = callback;
+}
+
+- (void)setOncancel:(KrollCallback *)callback
+{
+    DLog(@"Call oncancel method");
+    
+    self.oncancelCallback = callback;
 }
 
 - (void)setOndatastream:(KrollCallback *)callback

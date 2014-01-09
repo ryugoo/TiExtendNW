@@ -63,6 +63,10 @@
             Ti.API.error(e);
         };
 
+        http.oncancel = function (e) {
+            Ti.API.debug(e);
+        };
+
         http.ondatastream = function (e) {
             ind.value = e.value;
         };
