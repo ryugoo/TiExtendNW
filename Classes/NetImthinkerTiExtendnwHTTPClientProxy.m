@@ -32,6 +32,15 @@
 - (void)abort:(id)args
 {
     [self.operation cancel];
+    if ([self.operation isCancelled] && self.onerrorCallback != nil) {
+        NSDictionary *errorObject = @{@"error": @"cancel",
+                                      @"status": @(-1),
+                                      @"success": @NO};
+        [self _fireEventToListener:@"onerror"
+                        withObject:errorObject
+                          listener:self.onerrorCallback
+                        thisObject:nil];
+    }
 }
 
 - (void)open:(id)args
