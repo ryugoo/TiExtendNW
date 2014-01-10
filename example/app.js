@@ -75,9 +75,9 @@
             ind.value = e.value;
         };
 
-        http.timeout = 60000; // ms
+        http.timeout = 10000; // ms
 
-        http.cache = false;
+        http.cache = true;
 
         http.enableKeepAlive = true;
 

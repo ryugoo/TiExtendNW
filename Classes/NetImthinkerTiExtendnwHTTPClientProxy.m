@@ -105,11 +105,12 @@
 {
     DLog(@"Call timeout method");
     
-    NSNumber *timeout;
-    ENSURE_ARG_OR_NIL_AT_INDEX(timeout, args, 0, NSNumber);
+    NSNumber *timeout = [args copy];
     if (timeout) {
         self.timeoutVal = [timeout doubleValue] / 1000;
+        DLog(@"Timeout val is user defined : %@ [s]", @(self.timeoutVal));
     } else {
+        DLog(@"Timeout val is default : 60 [s]");
         self.timeoutVal = 60.0;
     }
 }
@@ -120,6 +121,7 @@
     
     BOOL useCache = [TiUtils boolValue:args def:NO];
     if (useCache) {
+        DLog(@"Enable MKNetworkEngine cache");
         [self.engine useCache];
     }
 }
@@ -130,6 +132,7 @@
     
     BOOL enableKeepAlive = [TiUtils boolValue:args def:NO];
     if (enableKeepAlive) {
+        DLog(@"Enable MKNetworkEngine KeepAlive");
         [self.requestHeaderDict setObject:@"Keep-Alive" forKey:@"Connection"];
     }
 }
@@ -243,7 +246,9 @@
     
     // Set timeout
     if (self.timeoutVal) {
+        DLog(@"Exist user defined timeout value");
         [self.operation setTimeoutInterval:self.timeoutVal];
+        DLog(@"This operation's timeout value is %@ [s]", @(self.operation.timeoutInterval));
     }
     
     // Set ondatastream / onsendstream hander
