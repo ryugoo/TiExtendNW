@@ -35,6 +35,9 @@
             forceReload: false
         });
 
+        var image_file = Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 'sample.jpg'),
+            image_blob = image_file.read();
+
         http.onload = function (e) {
             Ti.API.debug('onload callback objects');
             Ti.API.debug(e);
@@ -85,12 +88,19 @@
         http.setRequestHeader('X-ApplicationVersion', Ti.App.version);
         http.send({
             english: 'Appcelerator',
-            japanese: 'あぷせられーた'
+            japanese: 'あぷせられーた',
+            file: image_file,
+            blob: image_blob
         });
+
+        // Send Base64 encoded data
+        // http.send(image_file);
+        // http.send(image_blob);
 
         // Immediate cancel operation
         // http.abort();
     });
+
     win.add(btn);
     win.add(ind);
     ind.show();

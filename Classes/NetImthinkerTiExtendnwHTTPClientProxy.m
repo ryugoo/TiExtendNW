@@ -2,7 +2,8 @@
 #import "TiBlob.h"
 #import "TiUtils.h"
 #import "TiDOMDocumentProxy.h"
-#import "NSString+URIEncode_Decode.h"
+#import "NSString+MKNetworkKitAdditions.h"
+#import "NSData+MKBase64.h"
 
 #pragma mark Anonymous class extension
 @interface NetImthinkerTiExtendnwHTTPClientProxy ()
@@ -150,7 +151,7 @@
         if (args != nil) {
             NSMutableArray *queryParameters = [NSMutableArray new];
             for (id key in args) {
-                NSString *encodedString = [NSString encodeURIComponent:[TiUtils stringValue:args[key]]];
+                NSString *encodedString = [[TiUtils stringValue:args[key]] mk_urlEncodedString];
                 [queryParameters addObject:[NSString stringWithFormat:@"%@=%@", key, encodedString]];
             }
             if ([queryParameters count] != 0) {
@@ -170,50 +171,37 @@
             for (id arg in args) {
                 if ([arg isKindOfClass:[NSString class]]) {
                     // NSString
-                    [self.operation addData:[(NSString *)arg dataUsingEncoding:NSUTF8StringEncoding] forKey:nil];
-                    
+                    [self.operation setCustomPostDataEncodingHandler:^NSString *(NSDictionary *postDataDict) {
+                        return arg;
+                    } forType:@"application/x-www-form-urlencoded"];
                 } else if ([arg isKindOfClass:[NSDictionary class]]) {
                     // Params mutable array
-                    NSMutableArray *queryParameters = [NSMutableArray new];
-                    // NSDictionary
-                    for (id key in arg) {
+                    NSMutableDictionary *postParameters = [[NSMutableDictionary alloc] init];
+
+                    // Construct parameters
+                    for (NSString *key in arg) {
                         id value = arg[key];
+
+                        // TiBlob or TiFile
                         if ([value isKindOfClass:[TiBlob class]] || [value isKindOfClass:[TiFile class]]) {
-                            // Blob
                             TiBlob *blob = [value isKindOfClass:[TiBlob class]] ? (TiBlob *)value : [(TiFile *)value blob];
-                            if ([blob type] == TiBlobTypeFile) {
-                                // File
-                                [self.operation addFile:[blob path] forKey:key];
-                            } else {
-                                // Data
-                                NSData *data = [blob data];
-                                [self.operation addData:data forKey:key];
-                            }
-                            
+                            [self.operation addData:[blob data] forKey:key];
                         } else {
-                            // Other format (URIEncode)
-                            NSString *encodedString = [NSString encodeURIComponent:[TiUtils stringValue:value]];
-                            [queryParameters addObject:[NSString stringWithFormat:@"%@=%@", key, encodedString]];
+                            [postParameters setObject:value forKey:key];
                         }
                     }
-                    if ([queryParameters count] != 0) {
-                        __block NSString *query = [queryParameters componentsJoinedByString:@"&"];
-                        [self.operation setCustomPostDataEncodingHandler:^NSString *(NSDictionary *postDataDict) {
-                            return query;
-                        } forType:@"application/x-www-form-urlencoded"];
-                    }
                     
+                    // Append data
+                    if ([postParameters count] != 0) {
+                        [self.operation addParams:postParameters];
+                    }
                 } else if ([arg isKindOfClass:[TiBlob class]] || [arg isKindOfClass:[TiFile class]]) {
                     // TiBlob or TiFile
                     TiBlob *blob = [arg isKindOfClass:[TiBlob class]] ? (TiBlob *)arg : [(TiFile *)arg blob];
-                    if ([blob type] == TiBlobTypeFile) {
-                        // File
-                        [self.operation addFile:[blob path] forKey:nil];
-                    } else {
-                        NSData *data = [blob data];
-                        [self.operation addData:data forKey:nil];
-                    }
-                    
+                    NSString *base64EncodedDataString = [blob.data base64EncodedString];
+                    [self.operation setCustomPostDataEncodingHandler:^NSString *(NSDictionary *postDataDict) {
+                        return base64EncodedDataString;
+                    } forType:@"application/octet-stream"];
                 }
             }
         }
