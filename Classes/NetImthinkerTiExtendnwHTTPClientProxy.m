@@ -4,6 +4,7 @@
 #import "TiDOMDocumentProxy.h"
 #import "NSString+MKNetworkKitAdditions.h"
 #import "NSData+MKBase64.h"
+#import "NSDictionary+RequestEncoding.h"
 
 #pragma mark Anonymous class extension
 @interface NetImthinkerTiExtendnwHTTPClientProxy ()
@@ -191,10 +192,10 @@
                         }
                     }
                     
-                    // Append data
-                    if ([postParameters count] != 0) {
-                        [self.operation addParams:postParameters];
-                    }
+                    // Set message body
+                    [self.operation setCustomPostDataEncodingHandler:^NSString *(NSDictionary *postDataDict) {
+                        return [postParameters urlEncodedKeyValueString];
+                    } forType:@"application/x-www-form-urlencoded"];
                 } else if ([arg isKindOfClass:[TiBlob class]] || [arg isKindOfClass:[TiFile class]]) {
                     // TiBlob or TiFile
                     TiBlob *blob = [arg isKindOfClass:[TiBlob class]] ? (TiBlob *)arg : [(TiFile *)arg blob];
