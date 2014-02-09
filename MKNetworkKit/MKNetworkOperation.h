@@ -693,6 +693,7 @@ typedef enum {
 
 #pragma mark Extend properties
 @property (nonatomic) NSTimeInterval timeoutInterval;
+@property (nonatomic, copy) NSData *rawBodyData;
 
 #pragma mark Extend methods
 - (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval;

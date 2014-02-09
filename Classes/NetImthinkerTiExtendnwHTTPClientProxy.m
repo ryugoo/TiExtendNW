@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSString *verb;
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic) BOOL forceReload;
-@property (nonatomic) NSMutableDictionary *requestHeaderDict;
+@property (nonatomic) NSMutableArray *requestHeaderProperties;
 @property (nonatomic, copy) NSDictionary *openOptions;
 @property (nonatomic) NSTimeInterval timeoutVal;
 @property (nonatomic) KrollCallback *onloadCallback;
@@ -54,7 +54,7 @@
     ENSURE_ARG_OR_NIL_AT_INDEX(self.url, args, 1, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(self.openOptions, args, 2, NSDictionary);
     self.engine = [self sharedEngine];
-    self.requestHeaderDict = [NSMutableDictionary new];
+    self.requestHeaderProperties = [NSMutableArray new];
 }
 
 - (void)setOnload:(KrollCallback *)callback
@@ -100,7 +100,7 @@
     NSString *value;
     ENSURE_ARG_OR_NIL_AT_INDEX(key, args, 0, NSString);
     ENSURE_ARG_OR_NIL_AT_INDEX(value, args, 1, NSString);
-    [self.requestHeaderDict setObject:value forKey:key];
+    [self.requestHeaderProperties addObject:@{key: value}];
 }
 
 - (void)setTimeout:(id)args
@@ -135,7 +135,7 @@
     BOOL enableKeepAlive = [TiUtils boolValue:args def:NO];
     if (enableKeepAlive) {
         DLog(@"Enable MKNetworkEngine KeepAlive");
-        [self.requestHeaderDict setObject:@"Keep-Alive" forKey:@"Connection"];
+        [self.requestHeaderProperties addObject:@{@"Connection": @"Keep-Alive"}];
     }
 }
 
@@ -199,10 +199,8 @@
                 } else if ([arg isKindOfClass:[TiBlob class]] || [arg isKindOfClass:[TiFile class]]) {
                     // TiBlob or TiFile
                     TiBlob *blob = [arg isKindOfClass:[TiBlob class]] ? (TiBlob *)arg : [(TiFile *)arg blob];
-                    NSString *base64EncodedDataString = [blob.data base64EncodedString];
-                    [self.operation setCustomPostDataEncodingHandler:^NSString *(NSDictionary *postDataDict) {
-                        return base64EncodedDataString;
-                    } forType:@"application/octet-stream"];
+                    [self.operation setRawBodyData:[blob data]];
+                    [self.requestHeaderProperties addObject:@{@"Content-Type": [blob mimeType]}];
                 }
             }
         }
@@ -226,10 +224,11 @@
     }
     
     // Set request header
-    if ([self.requestHeaderDict count] != 0) {
-        for (NSString *key in [self.requestHeaderDict keyEnumerator]) {
-            NSString *value = [self.requestHeaderDict valueForKey:key];
-            [self.operation addHeader:key withValue:value];
+    if ([self.requestHeaderProperties count] != 0) {
+        for (NSDictionary *properties in self.requestHeaderProperties) {
+            NSString *key = [properties allKeys][0];
+            NSString *value = properties[key];
+            [self.operation setHeader:key withValue:value];
         }
     }
     
@@ -290,9 +289,13 @@
             if (completedOperation.responseString != nil) {
                 [weakself setValue:completedOperation.responseString forUndefinedKey:@"responseText"];
                 
-                NSString *xmlSubString = [[completedOperation.responseString substringToIndex:5] lowercaseString];
-                if ([xmlSubString isEqualToString:@"<?xml"]) {
-                    [weakself setValue:[weakself _responseXML:completedOperation.responseString] forUndefinedKey:@"responseXML"];
+                if ([completedOperation.responseString length] > 5) {
+                    NSString *xmlSubString = [[completedOperation.responseString substringToIndex:5] lowercaseString];
+                    if ([xmlSubString isEqualToString:@"<?xml"]) {
+                        [weakself setValue:[weakself _responseXML:completedOperation.responseString] forUndefinedKey:@"responseXML"];
+                    } else {
+                        [weakself setValue:(id)[NSNull null] forUndefinedKey:@"responseXML"];
+                    }
                 } else {
                     [weakself setValue:(id)[NSNull null] forUndefinedKey:@"responseXML"];
                 }
@@ -313,6 +316,7 @@
     } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
         // Error
         if (weakself.onerrorCallback != nil) {
+            NSLog(@"[ERROR] %@", [error description]);
             NSDictionary *errorResponse = @{@"error": [error localizedDescription],
                                             @"code": @(completedOperation.HTTPStatusCode),
                                             @"success": @NO};

@@ -85,6 +85,7 @@
         http.enableKeepAlive = true;
 
         http.setRequestHeader('User-Agent', 'MKNetworkKit wrapper for Titanium (iOS) Version 1.0');
+        http.setRequestHeader('X-UserDefinedHeader', 'Hello World');
         http.setRequestHeader('X-ApplicationVersion', Ti.App.version);
         http.send({
             english: 'Appcelerator',
@@ -93,7 +94,7 @@
             blob: image_blob
         });
 
-        // Send Base64 encoded data
+        // Send raw data
         // http.send(image_file);
         // http.send(image_blob);
 
